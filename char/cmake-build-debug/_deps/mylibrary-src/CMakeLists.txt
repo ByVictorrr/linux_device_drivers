@@ -1,0 +1,7 @@
+include(${CMAKE_CURRENT_SOURCE_DIR}/setup.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/feature.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/kernel.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/kernel_launcher.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/module.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/source.cmake)
+include(${CMAKE_CURRENT_SOURCE_DIR}/executable.cmake)
