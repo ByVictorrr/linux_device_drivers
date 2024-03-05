@@ -1,3 +1,0 @@
-repository='https://github.com/gunnerDgd/klever.git'
-module=''
-tag='origin'

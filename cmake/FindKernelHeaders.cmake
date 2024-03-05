@@ -9,10 +9,10 @@ execute_process(
 )
 
 # Find the headers
-find_path(KERNELHEADERS_DIR
-        include/linux/user.h
-        PATHS /usr/src/linux-headers-${KERNEL_RELEASE}
-        )
+# find_path(KERNELHEADERS_DIR PATHS /usr/src/linux/include)
+set(KERNELHEADERS_DIR /usr/src/linux-headers-4.15.0-213-generic)
+#include_directories(/usr/src/linux-headers-4.15.0-213-generic/include/)
+
 
 message(STATUS "Kernel release: ${KERNEL_RELEASE}")
 message(STATUS "Kernel headers: ${KERNELHEADERS_DIR}")
