@@ -66,4 +66,19 @@ function(add_kernel_module MODULE_NAME SOURCE_FILES)
             WORKING_DIRECTORY ${MODULE_DIR}
             COMMENT "Cleaning kernel module ${MODULE_NAME}"
     )
+
+    # Custom target for inserting the kernel module using insmod
+    add_custom_target(
+            insert_${MODULE_NAME}_module
+            COMMAND sudo insmod ${MODULE_DIR}/${MODULE_NAME}.ko
+            DEPENDS ${MODULE_DIR}/${MODULE_NAME}.ko
+            COMMENT "Inserting kernel module ${MODULE_NAME}"
+    )
+
+    # Custom target for removing the kernel module using rmmod
+    add_custom_target(
+            remove_${MODULE_NAME}_module
+            COMMAND sudo rmmod ${MODULE_DIR}/${MODULE_NAME}.ko
+            COMMENT "Removing kernel module ${MODULE_NAME}"
+    )
 endfunction()
