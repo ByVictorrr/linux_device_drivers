@@ -1,5 +1,4 @@
 
-#include <linux/kdev_t.h>
 #include <linux/module.h>
 #include <linux/init.h>
 
@@ -18,3 +17,4 @@ module_init(hello_init);
 module_exit(hello_exit)
 
 
+MODULE_LICENSE("HPE");
