@@ -1,15 +1,3 @@
-execute_process(
-        COMMAND uname -r
-        OUTPUT_VARIABLE KERNEL_VERSION
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-)
-# Include directories for kernel headers
-# Add your include directories
-include_directories(
-        /usr/src/${KERNEL_VERSION}/include
-        /usr/src/${KERNEL_VERSION}/arch/x86/include
-)
-
 
 # KernelModule.cmake
 function(add_kernel_module MODULE_NAME SOURCE_FILES)
@@ -20,7 +8,8 @@ function(add_kernel_module MODULE_NAME SOURCE_FILES)
             OUTPUT_STRIP_TRAILING_WHITESPACE
     )
 
-    set(KERNEL_BUILD_DIR "/usr/src/${KERNEL_VERSION}")
+    set(KERNEL_BUILD_DIR /usr/src/${KERNEL_VERSION})
+    message(INFO "${KERNEL_BUILD_DIR}")
     # Ensure the kernel build directory exists
     if(NOT EXISTS ${KERNEL_BUILD_DIR})
         message(FATAL_ERROR "Kernel build directory does not exist: ${KERNEL_BUILD_DIR}")
@@ -55,8 +44,9 @@ function(add_kernel_module MODULE_NAME SOURCE_FILES)
     )
 
     add_custom_target(
-            ${MODULE_NAME}_module ALL
+            ${MODULE_NAME} ALL
             DEPENDS ${MODULE_DIR}/${MODULE_NAME}.ko
+            SOURCES ${SOURCE_FILES}
     )
 
     # Custom target for cleaning the kernel module
