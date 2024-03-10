@@ -5,22 +5,29 @@
       <paths name="Remote GDB Server (0b35909c-b5b0-4eb4-8f4a-116c46879cfd)">
         <serverdata>
           <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
       <paths name="Remote Host (9927bb2d-d16b-4f01-9b53-d77b904b93af)">
         <serverdata>
           <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
-          <excludedPaths>
-            <excludedPath local="true" path="$PROJECT_DIR$/char/cmake-build-debug" />
-            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-default-remote-host" />
-            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-debug" />
-            <excludedPath local="true" path="$PROJECT_DIR$/cmake-build-default-remote-host" />
-            <excludedPath local="true" path="$PROJECT_DIR$/char/cmake-build-default-remote-host" />
-          </excludedPaths>
+        </serverdata>
+      </paths>
+      <paths name="WSL (8986d15d-2c13-4c53-90bd-96c8c6bc732c)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
+        </serverdata>
+      </paths>
+      <paths name="WSL (c147005c-d5ca-4bb6-b55e-30e149a7efcb)">
+        <serverdata>
+          <mappings>
+            <mapping local="$PROJECT_DIR$" web="/" />
+          </mappings>
         </serverdata>
       </paths>
     </serverData>

@@ -1,14 +1,48 @@
+execute_process(
+        COMMAND uname -r
+        OUTPUT_VARIABLE KERNEL_VERSION
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+add_definitions(-D__KERNEL__ -DMODULE)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -nostdinc")
+
+# -------- extract c include paths -----------
+# Define a variable to store the include paths
+set(GCC_INCLUDE_PATHS "")
+# Execute the command to get GCC system include paths
+execute_process(
+        COMMAND bash -c "${CMAKE_C_COMPILER} -xc++ -E -v - </dev/null 2>&1 | grep '^ ' | grep '/usr.*include'"
+        OUTPUT_VARIABLE GCC_INCLUDE_PATHS_RAW
+)
+# Split the raw output into a list
+string(REPLACE "\n" ";" GCC_INCLUDE_PATHS_LIST "${GCC_INCLUDE_PATHS_RAW}")
+# Remove leading and trailing whitespaces from each path
+foreach(PATH IN LISTS GCC_INCLUDE_PATHS_LIST)
+    string(STRIP "${PATH}" TRIMMED_PATH)
+    list(APPEND GCC_INCLUDE_PATHS "${TRIMMED_PATH}")
+endforeach()
+# Print the include paths
+foreach(INCLUDE_PATH ${GCC_INCLUDE_PATHS})
+    message(STATUS "GCC include path: ${INCLUDE_PATH}")
+endforeach()
+
+set(KERNEL_BUILD_DIR "/usr/src/${KERNEL_VERSION}")
+include_directories(
+        /usr/src/${KERNEL_VERSION}/include
+        /usr/src/${KERNEL_VERSION}/arch/x86/include
+        /usr/src/${KERNEL_VERSION}/arch/x86/include/generated
+        /usr/src/${KERNEL_VERSION}/include/uapi
+        /usr/src/${KERNEL_VERSION}/include/generated/uapi
+        /usr/src/${KERNEL_VERSION}/include/asm-generic
+        /usr/src/${KERNEL_VERSION}/arch/x86/include/uapi
+        "${GCC_INCLUDE_PATHS}"
+)
+
 
 # KernelModule.cmake
 function(add_kernel_module MODULE_NAME SOURCE_FILES)
     # Determine the kernel version and set the kernel build directory
-    execute_process(
-            COMMAND uname -r
-            OUTPUT_VARIABLE KERNEL_VERSION
-            OUTPUT_STRIP_TRAILING_WHITESPACE
-    )
 
-    set(KERNEL_BUILD_DIR /usr/src/${KERNEL_VERSION})
     message(INFO "${KERNEL_BUILD_DIR}")
     # Ensure the kernel build directory exists
     if(NOT EXISTS ${KERNEL_BUILD_DIR})
@@ -44,7 +78,7 @@ function(add_kernel_module MODULE_NAME SOURCE_FILES)
     )
 
     add_custom_target(
-            ${MODULE_NAME} ALL
+            ${MODULE_NAME}
             DEPENDS ${MODULE_DIR}/${MODULE_NAME}.ko
             SOURCES ${SOURCE_FILES}
     )
@@ -71,4 +105,5 @@ function(add_kernel_module MODULE_NAME SOURCE_FILES)
             COMMAND sudo rmmod ${MODULE_DIR}/${MODULE_NAME}.ko
             COMMENT "Removing kernel module ${MODULE_NAME}"
     )
+    add_executable(_headers_${MODULE_NAME}  ${SOURCE_FILES})
 endfunction()
