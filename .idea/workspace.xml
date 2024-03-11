@@ -10,14 +10,15 @@
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
       <config projectName="root_project" targetName="scull_main" />
-      <config projectName="root_project" targetName="clean_char_scull_module" />
-      <config projectName="root_project" targetName="remove_char_scull_module" />
-      <config projectName="root_project" targetName="_headers_char_scull" />
-      <config projectName="root_project" targetName="insert_char_scull_module" />
+      <config projectName="root_project" targetName="clean_char_scull_main_module" />
+      <config projectName="root_project" targetName="init_char" />
       <config projectName="root_project" targetName="_headers_scull_main" />
       <config projectName="root_project" targetName="clean_scull_main_module" />
+      <config projectName="root_project" targetName="insert_char_scull_main_module" />
+      <config projectName="root_project" targetName="remove_char_scull_main_module" />
       <config projectName="root_project" targetName="insert_scull_main_module" />
-      <config projectName="root_project" targetName="char_scull" />
+      <config projectName="root_project" targetName="char_scull_main" />
+      <config projectName="root_project" targetName="_headers_char_scull_main" />
       <config projectName="root_project" targetName="remove_scull_main_module" />
     </generated>
   </component>
@@ -28,18 +29,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d97ca2d8-5ff7-4d37-89c6-b714b78f81f7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ch2-building_running_modules/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ch3-char_drivers/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ch3-char_drivers/char_scull_main.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ch3-char_drivers/scull_actions.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/customTargets.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ch2-building_running_modules/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ch2-building_running_modules/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ch3-char_drivers/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ch3-char_drivers/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ch3-char_drivers/char_scull_main.c" beforeDir="false" afterPath="$PROJECT_DIR$/ch3-char_drivers/char_scull_main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ch3-char_drivers/scull_actions.sh" beforeDir="false" afterPath="$PROJECT_DIR$/ch3-char_drivers/scull_actions.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cmake/FindKernelHeaders.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake/FindKernelHeaders.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scull_main.c" beforeDir="false" afterPath="$PROJECT_DIR$/ch2-building_running_modules/scull_main.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -71,6 +67,15 @@
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/ch3-char_drivers/char_scull_main.c" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ch2-building_running_modules/CMakeLists.txt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ch3-char_drivers/CMakeLists.txt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ch2-building_running_modules/scull_main.c" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ch3-char_drivers/scull_actions.sh" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CMakeLists.txt" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/cmake/FindKernelHeaders.cmake" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedIndex" value="5" />
   </component>
@@ -89,12 +94,13 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="cmake.loaded.for.project" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/ch3-char_drivers" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/cmake-build-debug/ch3-char_drivers/char_scull_main" />
     <property name="nodejs_package_manager_path" value="npm" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="settings.editor.selected.configurable" value="CPPToolchains" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\cmake-build-debug\ch3-char_drivers\char_scull_main" />
       <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\ch3-char_drivers" />
       <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers" />
     </key>
@@ -102,7 +108,12 @@
       <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\ch2-building_running_modules" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application._headers_scull_main">
+  <component name="RunManager" selected="CMake Application.init_char">
+    <configuration default="true" type="CLionExternalRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+      <method v="2">
+        <option name="CLION.EXTERNAL.BUILD" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="Unnamed" type="CLionNativeAppRunConfigurationType" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="KERNEL_MODULES" TARGET_NAME="clean_scull_main_module" CONFIG_NAME="Debug" version="1">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
@@ -118,11 +129,6 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="char_scull_main" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="char_scull_main" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -134,6 +140,11 @@
       </method>
     </configuration>
     <configuration name="clean_scull_main_module" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="clean_scull_main_module" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="init_char" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="init_char" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -177,6 +188,7 @@
       <item itemvalue="CMake Application._headers_char_scull_main" />
       <item itemvalue="CMake Application.char_scull_main" />
       <item itemvalue="CMake Application.clean_char_scull_main_module" />
+      <item itemvalue="CMake Application.init_char" />
       <item itemvalue="CMake Application.insert_char_scull_main_module" />
       <item itemvalue="CMake Application.remove_char_scull_main_module" />
       <item itemvalue="Makefile Application.Unnamed" />
@@ -195,7 +207,8 @@
       <workItem from="1709810231321" duration="11071000" />
       <workItem from="1709869751574" duration="626000" />
       <workItem from="1709979701405" duration="10011000" />
-      <workItem from="1710032973932" duration="13362000" />
+      <workItem from="1710032973932" duration="22237000" />
+      <workItem from="1710129123180" duration="9608000" />
     </task>
     <servers />
   </component>

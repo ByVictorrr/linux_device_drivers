@@ -57,7 +57,18 @@ function(add_kernel_module MODULE_NAME SOURCE_FILES)
     foreach(SOURCE_FILE ${SOURCE_FILES})
         get_filename_component(SRC_FILE_NAME ${SOURCE_FILE} NAME)
         get_filename_component(SRC_FILE_DIR ${SOURCE_FILE} DIRECTORY)
-        file(COPY ${SOURCE_FILE} DESTINATION ${MODULE_DIR})
+        set(DEST_FILE_PATH "${MODULE_DIR}/${SRC_FILE_NAME}")
+
+        # Custom command to copy and generate build rule
+        add_custom_command(
+                OUTPUT ${DEST_FILE_PATH}
+                COMMAND ${CMAKE_COMMAND} -E copy ${SOURCE_FILE} ${DEST_FILE_PATH}
+                DEPENDS ${SOURCE_FILE}
+                COMMENT "Copying ${SOURCE_FILE} to ${DEST_FILE_PATH}"
+        )
+
+        # Add the destination file to a list
+        list(APPEND DEST_FILES ${DEST_FILE_PATH})
     endforeach()
 
     # Generate the Makefile
@@ -80,7 +91,7 @@ function(add_kernel_module MODULE_NAME SOURCE_FILES)
     add_custom_target(
             ${MODULE_NAME}
             DEPENDS ${MODULE_DIR}/${MODULE_NAME}.ko
-            SOURCES ${SOURCE_FILES}
+            SOURCES ${SOURCE_FILES} ${DEST_FILES}
     )
 
     # Custom target for cleaning the kernel module
