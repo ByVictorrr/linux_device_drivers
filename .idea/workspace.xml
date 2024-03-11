@@ -28,15 +28,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d97ca2d8-5ff7-4d37-89c6-b714b78f81f7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ch2-building_running_modules/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ch2-building_running_modules/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ch3-char_drivers/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/ch3-char_drivers/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ch3-char_drivers/char_scull_main.c" beforeDir="false" afterPath="$PROJECT_DIR$/ch3-char_drivers/char_scull_main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ch3-char_drivers/scull_actions.sh" beforeDir="false" afterPath="$PROJECT_DIR$/ch3-char_drivers/scull_actions.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake/FindKernelHeaders.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake/FindKernelHeaders.cmake" afterDir="false" />
-    </list>
+    <list default="true" id="d97ca2d8-5ff7-4d37-89c6-b714b78f81f7" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -208,7 +200,7 @@
       <workItem from="1709869751574" duration="626000" />
       <workItem from="1709979701405" duration="10011000" />
       <workItem from="1710032973932" duration="22237000" />
-      <workItem from="1710129123180" duration="9608000" />
+      <workItem from="1710129123180" duration="10258000" />
     </task>
     <servers />
   </component>
