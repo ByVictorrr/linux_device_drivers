@@ -10,7 +10,11 @@ find_package(KernelHeaders REQUIRED)
 
 
 # Kernel configuration target
-add_kernel_module(char_scull_main ${CMAKE_CURRENT_SOURCE_DIR}/char_scull_main.c)
+add_kernel_module(char_scull_main
+        ${CMAKE_CURRENT_SOURCE_DIR}/char_scull_main.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/pipe.c
+        )
+add_executable(_pipe  ${CMAKE_CURRENT_SOURCE_DIR}/pipe.c)
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/scull_actions.sh DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/char_scull_main)
 
 add_custom_target(init_char

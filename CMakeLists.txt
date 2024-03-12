@@ -6,5 +6,6 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 # You would need to create a FindKernelHeaders.cmake file in the cmake directory to use this
 
 # Add subdirectories
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ch2-building_running_modules)
-add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/ch3-char_drivers)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/intro)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/scull)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/misc-progs)
