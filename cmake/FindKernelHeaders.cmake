@@ -29,12 +29,17 @@ endforeach()
 set(KERNEL_BUILD_DIR "/usr/src/${KERNEL_VERSION}")
 include_directories(
         /usr/src/${KERNEL_VERSION}/include
-        /usr/src/${KERNEL_VERSION}/arch/x86/include
-        /usr/src/${KERNEL_VERSION}/arch/x86/include/generated
         /usr/src/${KERNEL_VERSION}/include/uapi
-        /usr/src/${KERNEL_VERSION}/include/generated/uapi
         /usr/src/${KERNEL_VERSION}/include/asm-generic
+        /usr/src/${KERNEL_VERSION}/include/generated/uapi
+        /usr/src/${KERNEL_VERSION}/arch/x86/include
         /usr/src/${KERNEL_VERSION}/arch/x86/include/uapi
+        /usr/src/${KERNEL_VERSION}/arch/x86/include/generated
+        /usr/src/${KERNEL_VERSION}/arch/x86/include/generated/uapi
+        /usr/src/${KERNEL_VERSION}/arch/x86/include/generated/asm
+        /usr/src/${KERNEL_VERSION}/arch/x86/include/uapi/asm
+        /usr/src/${KERNEL_VERSION}/arch/x86/include/asm
+        /usr/src/${KERNEL_VERSION}/arch/x86/um/asm
         "${GCC_INCLUDE_PATHS}"
 )
 

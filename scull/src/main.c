@@ -8,7 +8,7 @@
 #include <linux/slab.h>
 #include <asm-generic/errno.h>
 #include <asm-generic/ioctl.h>
-#include "include/scull.h"
+#include "../include/scull.h"
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Victor Delaplaine");
@@ -28,27 +28,17 @@ module_param(scull_quantum, int, S_IRUGO);
 module_param(scull_qset, int, S_IRUGO);
 
 
-struct scull_dev *scull_devices;	/* allocated in scull_init_module */
-struct scull_qset {
-    void **data;
-    struct scull_qset *next;
-};
-
-struct scull_dev {
-    struct scull_qset *data; /* Pointer to first quantum set */
-    int quantum; /* the current quantum size */
-    int qset; /* the current array size */
-    unsigned long size; /* amount of data stored here */
-    unsigned int access_key; /* used by sculluid and scullpriv */
-    struct semaphore sem; /* mutual exclusion semaphore */
-    struct cdev cdev; /* Char device structure */
-};
 
 
 
-
-static int scull_trim(struct scull_dev *dev){
-
+/**
+ * scull_trim - cleans up the memory space for a fresh write
+ * @dev:  a scull_device
+ *
+ * Detailed description of what the function does.
+ *
+ */
+int scull_trim(struct scull_dev *dev){
     struct scull_qset * next, *dptr;
     int qset = dev->qset, quantum = dev->quantum, i;
     for (dptr = dev->data; dptr; dptr=next){
@@ -104,7 +94,7 @@ struct scull_qset * scull_follow(struct scull_dev *dev, int item) {
     return dptr;
 }
 
-static ssize_t scull_read(struct file *filp, char __user *buf, size_t count, loff_t *f_pos){
+ssize_t scull_read(struct file *filp, char __user *buf, size_t count, loff_t *f_pos){
     struct scull_dev *dev = filp->private_data;
     struct scull_qset * dptr;
     int qset = dev->qset, quantum = dev->quantum;
@@ -145,8 +135,7 @@ static ssize_t scull_read(struct file *filp, char __user *buf, size_t count, lof
 
 
 
-
-static ssize_t scull_write(struct file *filp, const char __user *buf, size_t count, loff_t *f_pos) {
+ssize_t scull_write(struct file *filp, const char __user *buf, size_t count, loff_t *f_pos) {
     struct scull_dev *dev = filp->private_data;
     struct scull_qset *dptr;
     int qset = dev->qset, quantum = dev->quantum;
@@ -271,7 +260,7 @@ long scull_ioctl(struct file *filp, unsigned int cmd, unsigned long arg){
     return retval;
 };
 
-static loff_t scull_llseek(struct file *filp, loff_t off, int whence){
+loff_t scull_llseek(struct file *filp, loff_t off, int whence){
     struct scull_dev *dev = filp->private_data;
     loff_t newpos;
     switch(whence){
