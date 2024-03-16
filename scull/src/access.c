@@ -158,7 +158,8 @@ struct file_operations scull_w_fops = {
 //-----------------private copies per processes-------------------
 static DEFINE_SPINLOCK(scull_c_lock);
 static LIST_HEAD(scull_c_list);
-
+/* A placeholder scull_dev which really just holds the cdev stuff. */
+static struct scull_dev scull_c_device;
 struct scull_listitem {
     struct scull_dev device;
     dev_t key;
@@ -231,3 +232,27 @@ struct file_operations scull_c_fops = {
         .open =       	scull_c_open,
         .release =    	scull_c_release,
 };
+/********************************************
+* Init and cleanup functions come last
+*/
+#define SCULL_MAX_ADEVS 4
+
+static struct scull_adev_info {
+   char *name;
+   struct scull_dev *sculldev;
+   struct file_operations *fops;
+}scull_access_devs[SCULL_MAX_ADEVS] = {
+        {"scull_single", &scull_s_device, &scull_s_fops},
+        {"scull_uid", &scull_u_device, &scull_u_fops},
+        {"scull_wuid", &scull_w_device, &scull_w_fops},
+        {"scull_priv", &scull_c_device, &scull_c_fops}
+
+};
+int scull_access_init(dev_t firstdev){
+
+}
+/*
+ * This is called by cleanup_module or on failure.
+ * It is required to never fail, even if nothing was initialized first
+ */
+void scull_access_cleanup(void){}

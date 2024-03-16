@@ -11,9 +11,10 @@ find_package(KernelHeaders REQUIRED)
 
 # Kernel configuration target
 add_kernel_module(char_scull_main
-        src/main.c
+        src/scull.c
         src/pipe.c
         src/access.c
+        src/main.c
         )
 
 
@@ -21,6 +22,7 @@ add_executable(_pipe
         src/pipe.c
         ${CMAKE_CURRENT_SOURCE_DIR}/include/scull.h
         src/access.c
+        src/main.c
 
         )
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/scull_actions.sh DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/char_scull_main)

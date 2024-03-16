@@ -31,14 +31,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d97ca2d8-5ff7-4d37-89c6-b714b78f81f7" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scull/src/scull.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake/FindKernelHeaders.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake/FindKernelHeaders.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/intro/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/intro/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scull/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scull/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scull/include/scull.h" beforeDir="false" afterPath="$PROJECT_DIR$/scull/include/scull.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scull/src/access.c" beforeDir="false" afterPath="$PROJECT_DIR$/scull/src/access.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scull/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/scull/src/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scull/src/pipe.c" beforeDir="false" afterPath="$PROJECT_DIR$/scull/src/pipe.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,12 +95,13 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="cmake.loaded.for.project" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/misc-progs" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/scull/src" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="CPPToolchains" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\scull\src" />
       <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\misc-progs" />
       <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\cmake-build-debug\ch3-char_drivers\char_scull_main" />
       <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\ch3-char_drivers" />
@@ -226,7 +226,7 @@
       <workItem from="1709979701405" duration="10011000" />
       <workItem from="1710032973932" duration="22237000" />
       <workItem from="1710129123180" duration="11895000" />
-      <workItem from="1710199099890" duration="50221000" />
+      <workItem from="1710199099890" duration="64667000" />
     </task>
     <servers />
   </component>

@@ -1,3 +1,4 @@
+#include <linux/module.h>
 #include <linux/sched.h>
 #include <linux/kernel.h>	/* printk(), min() */
 #include <linux/slab.h>		/* kmalloc() */
@@ -13,6 +14,7 @@
 #include <asm/uaccess.h>
 #include <asm-generic/fcntl.h>
 #include <asm-generic/errno.h>
+#include "../include/scull.h"
 
 struct scull_pipe{
     wait_queue_head_t inq, outq;
@@ -25,6 +27,13 @@ struct scull_pipe{
     struct cdev cdev;
 
 };
+/* Parameters */
+static int scull_p_nr_devs = 4;
+static int scull_p_buffer = 4000;	/* buffer size */
+module_param(scull_p_nr_devs, int, 0);	/* FIXME check perms */
+module_param(scull_p_buffer, int, 0);
+static struct scull_pipe *scull_p_devices;
+dev_t scull_p_devno;			/* Our first device number */
 
 
 static ssize_t scull_p_read(struct file *filp, char __user *buf, size_t count, loff_t *f_pos) {
@@ -165,3 +174,51 @@ struct file_operations scull_p_fops = {
 };
 
 
+int scull_p_init(dev_t first_dev){
+    int i, err;
+    if (register_chrdev_region(&dev, (unsigned int) scull_p_nr_devs, "scullpipe") < 0){
+        printk(KERN_WARNING "scull: cant get major %d.\n", scull_major);
+        return 0;
+    }
+    scull_p_devno = first_dev;
+    scull_p_devices = (struct scull_pipe *) kmalloc(scull_p_nr_devs * sizeof(struct scull_pipe), GFP_KERNEL);
+    if (!scull_p_devices){
+        unregister_chrdev_region(first_dev, (unsigned int) scull_p_nr_devs);
+        return 0;
+    }
+    memset(scull_p_devices, 0, scull_p_nr_devs * sizeof(struct scull_pipe));
+    for (i = 0; i < scull_p_nr_devs; i++){
+        struct scull_pipe * dev = &scull_p_devices[i];
+        init_waitqueue_head(&dev->inq);
+        init_waitqueue_head(&dev->outq);
+        mutex_init(&dev->sem);
+        // init the cdev
+        cdev_init(&dev->cdev, &scull_p_fops);
+        dev->cdev.owner = THIS_MODULE;
+        err = cdev_add(&dev->cdev, scull_p_devno + i, 1);
+        if(err)
+            printk(KERN_NOTICE "Error %d adding scullpipe%d", err, index);
+
+    }
+
+}
+
+
+/*
+ * This is called by cleanup_module or on failure.
+ * It is required to never fail, even if nothing was initialized first
+ */
+void scull_p_cleanup(void)
+{
+    int i;
+    if (!scull_p_devices)
+        return; /* nothing else to release */
+
+    for (i = 0; i < scull_p_nr_devs; i++) {
+        cdev_del(&scull_p_devices[i].cdev);
+        kfree(scull_p_devices[i].buffer);
+    }
+    kfree(scull_p_devices);
+    unregister_chrdev_region(scull_p_devno, scull_p_nr_devs);
+    scull_p_devices = NULL; /* pedantic */
+}
