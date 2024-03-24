@@ -8,4 +8,5 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 # Add subdirectories
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/intro)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/scull)
+add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/scullc)
 add_subdirectory(${CMAKE_CURRENT_SOURCE_DIR}/misc-progs)

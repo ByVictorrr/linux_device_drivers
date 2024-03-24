@@ -4,13 +4,14 @@
 #include <linux/cdev.h>
 #include <linux/semaphore.h>
 #include <linux/fs.h>
+#include <asm/uaccess.h>
 #include <asm-generic/fcntl.h>
 #include <linux/slab.h>
 #include <asm-generic/errno.h>
 #include <asm-generic/ioctl.h>
 #include <linux/proc_fs.h>
 #include <linux/seq_file.h>
-#include "../include/scull.h"
+#include "scull.h"
 
 
 
@@ -268,7 +269,17 @@ ssize_t scull_write(struct file *filp, const char __user *buf, size_t count, lof
         return retval;
 }
 long scull_ioctl(struct file *filp, unsigned int cmd, unsigned long arg){
+    int err;
     long retval, tmp;
+    /* validation_1: ensure the type && the command number meets our need*/
+    if (_IOC_TYPE(cmd) != SCULL_IOC_MAGIC || _IOC_NR(cmd) > SCULL_IOC_MAXNR)
+        return -ENOTTY;
+
+    if (_IOC_DIR(cmd) & (_IOC_READ | _IOC_WRITE))
+        err = !access_ok((void __user *)arg, _IOC_SIZE(cmd));
+        if (err)
+            return -EFAULT;
+
     switch(cmd){
         case SCULL_IOCRESET: // reset the device
             dev->quantum = 0;
@@ -335,6 +346,11 @@ long scull_ioctl(struct file *filp, unsigned int cmd, unsigned long arg){
             tmp = scull_qset;
             scull_qset = (int) arg;
             retval = tmp;
+        case SCULL_P_IOCTSIZE:
+            scull_p_buffer = arg;
+            break;
+        case SCULL_P_IOCQSIZE:
+            return scull_b_buffer;
         default:
             retval = -ENOTTY;
             break;

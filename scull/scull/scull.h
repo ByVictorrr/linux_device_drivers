@@ -34,7 +34,7 @@ extern int scull_minor;
 extern int scull_nr_devs;	/* number of bare scull devices */
 extern int scull_quantum;
 extern int scull_qset;
-
+extern struct file_operations scull_fops;
 int scull_trim(struct scull_dev *dev);
 ssize_t scull_read(struct file *, char __user *, size_t, loff_t *);
 ssize_t scull_write(struct file *, const char __user *, size_t, loff_t *);
@@ -42,6 +42,8 @@ long scull_ioctl(struct file *, unsigned int, unsigned long);
 loff_t scull_llseek(struct file *, loff_t, int);
 void scull_p_cleanup(void);
 int scull_p_init(dev_t first_dev);
+int scull_access_init(dev_t firstdev);
+void scull_access_cleanup(void);
 #undef PDEBUG /* undef it, just in case */
 #ifdef SCULL_DEBUG
 # ifdef __KERNEL__
@@ -90,5 +92,13 @@ int scull_p_init(dev_t first_dev);
 #define SCULL_IOCHQUANTUM _IO(SCULL_IOC_MAGIC,  11)
 #define SCULL_IOCHQSET    _IO(SCULL_IOC_MAGIC,  12)
 
-
+/*
+ * The other entities only have "Tell" and "Query", because they're
+ * not printed in the book, and there's no need to have all six.
+ * (The previous stuff was only there to show different ways to do it.
+ */
+#define SCULL_P_IOCTSIZE _IO(SCULL_IOC_MAGIC,   13)
+#define SCULL_P_IOCQSIZE _IO(SCULL_IOC_MAGIC,   14)
+/* ... more to come */
+#define SCULL_IOC_MAXNR 14
 #endif //SCULL_H

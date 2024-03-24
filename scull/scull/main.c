@@ -1,14 +1,10 @@
-
 #include <linux/init.h>
 #include <linux/module.h>
 #include <linux/cdev.h>
 #include <linux/semaphore.h>
 #include <linux/fs.h>
-#include <asm-generic/fcntl.h>
 #include <linux/slab.h>
-#include <asm-generic/errno.h>
-#include <asm-generic/ioctl.h>
-#include "../include/scull.h"
+#include "../scull/scull.h"
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Victor Delaplaine");
@@ -37,14 +33,16 @@ static void scull_exit(void){
     }
     kfree(scull_devices);
     unregister_chrdev((unsigned int) scull_major, "scull");
-    printk(KERN_ALERT "Goodbye, cruel world.\n");
+
+    /* and call the cleanup functions for friend devices */
+    scull_p_cleanup();
+    scull_access_cleanup();
 }
 
 
 static int __init scull_init(void){
     int result, i;
     dev_t dev = 0;
-    printk(KERN_WARNING "scull: in char init");
     // register the char device
     if (scull_major) {
         // Static - method
@@ -80,15 +78,15 @@ static int __init scull_init(void){
         if (cdev_add (&s_dev->cdev, dev, 1)){
             printk(KERN_NOTICE "Error adding scull %d", i);
         }
-        // At this point call the init function for any friend device
-        dev = (dev_t) MKDEV(scull_major, scull_minor + scull_major);
-        dev+= scull_p_init(dev);
-        dev+= scull_access_init(dev);
-    }
-    // initialize pipe
 
+    }
+    // At this point call the init function for any friend device
+    dev = (dev_t) MKDEV(scull_major, scull_minor + scull_major);
+    dev+= scull_p_init(dev);
+    dev+= scull_access_init(dev);
 
     return 0;
+
     fail:
         scull_exit();
         return result;

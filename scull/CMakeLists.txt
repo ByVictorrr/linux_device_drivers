@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0.0 FATAL_ERROR)
 
-project("Chapter3 - Char Drivers" VERSION 0.1.0 LANGUAGES C)
+project("SCULL" VERSION 0.1.0 LANGUAGES C)
 set(CMAKE_C_STANDARD 90)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
@@ -10,19 +10,19 @@ find_package(KernelHeaders REQUIRED)
 
 
 # Kernel configuration target
-add_kernel_module(char_scull_main
-        src/scull.c
-        src/pipe.c
-        src/access.c
-        src/main.c
+add_kernel_module(scull
+        scull/scull.c
+        scull_pipe/pipe.c
+        scull_access/access.c
+        scull_pipe/main.c
         )
 
 
 add_executable(_pipe
-        src/pipe.c
-        ${CMAKE_CURRENT_SOURCE_DIR}/include/scull.h
-        src/access.c
-        src/main.c
+        scull_pipe/pipe.c
+        scull/scull.h
+        scull_access/access.c
+        scull_pipe/main.c
 
         )
 file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/scull_actions.sh DESTINATION ${CMAKE_CURRENT_BINARY_DIR}/char_scull_main)

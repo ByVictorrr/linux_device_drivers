@@ -2,7 +2,7 @@
 // Created by delaplai on 3/13/2024.
 //
 
-#include "../include/scull.h"
+#include "../scull/scull.h"
 #include <asm-generic/atomic.h>
 #include <asm-generic/errno-base.h>
 #include <asm-generic/fcntl.h>
@@ -15,6 +15,7 @@
 
 #include <linux/sched.h>
 #include <linux/spinlock.h>
+static dev_t scull_a_firstdev;  /* Where our range begins */
 
 
 /******************SCULL SINGLE ACCESS Device**************************************/
@@ -249,10 +250,52 @@ static struct scull_adev_info {
 
 };
 int scull_access_init(dev_t firstdev){
+    int i, err;
+    // Get our number
+    if (register_chrdev_region(firstdev, SCULL_MAX_ADEVS, "sculla")){
+        printk(KERN_WARNING "sculla: device number registration failed\n");
+        return 0;
+    }
+    scull_a_firstdev = firstdev;
+    // setup each dev
+    for (i=0; i < SCULL_MAX_ADEVS; i++){
+        struct scull_adev_info *d = &scull_access_devs[i];
+        d->sculldev->quantum = scull_quantum;
+        d->sculldev->qset = scull_qset;
+        mutex_init(&d->sculldev->sem);
+        // cdev init
+        cdev_init(&d->sculldev->cdev, d->fops);
 
+        kobject_set_name(&d->sculldev->cdev.kobj, d->name);
+        d->sculldev->cdev.owner = THIS_MODULE;
+        err = cdev_add(&d->sculldev->cdev, firstdev + i, 1);
+        if (err)
+            printk(KERN_NOTICE "Error %d adding %s\n", err, d->name);
+        else
+            printk(KERN_NOTICE "%s registered at %x\n", d->name, firstdev + 1);
+
+    }
+    return SCULL_MAX_ADEVS;
 }
 /*
  * This is called by cleanup_module or on failure.
  * It is required to never fail, even if nothing was initialized first
  */
-void scull_access_cleanup(void){}
+void scull_access_cleanup(void){
+    struct scull_listitem *lptr, *next;
+    int i;
+    /* Clean up the static devs */
+    for (i=0; i < SCULL_MAX_ADEVS; i++){
+        struct scull_dev *dev = scull_access_devs[i].sculldev;
+        cdev_del(&dev->cdev);
+        scull_trim(dev);
+    }
+    /* Clean up all cloned devices - virtual clones */
+    list_for_each_safe(lptr, next, &scull_c_list, list){
+        list_del(&lptr->list);
+        scull_trim(&lptr->device);
+        kfree(lptr);
+
+    }
+    unregister_chrdev_region(scull_a_firstdev, SCULL_MAX_ADEVS);
+}
