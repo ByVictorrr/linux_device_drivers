@@ -4,16 +4,16 @@
 #include <linux/semaphore.h>
 #include <linux/fs.h>
 #include <linux/slab.h>
-#include "../scull/scull.h"
+#include "../scull.h"
 
 MODULE_LICENSE("GPL");
 MODULE_AUTHOR("Victor Delaplaine");
 MODULE_DESCRIPTION("A simple example Linux module.");
 MODULE_VERSION("0.01");
 
-int scull_major =   0;
+int scull_major =   SCULL_MAJOR;
 int scull_minor =   0;
-int scull_nr_devs = 4;	/* number of bare scull devices */
+int scull_nr_devs = SCULL_NR_DEVS;	/* number of bare scull devices */
 int scull_quantum = 4000;
 int scull_qset =  1000;
 
@@ -22,6 +22,7 @@ module_param(scull_minor,int, S_IRUGO);
 module_param(scull_nr_devs, int, S_IRUGO);
 module_param(scull_quantum, int, S_IRUGO);
 module_param(scull_qset, int, S_IRUGO);
+struct scull_dev *scull_devices;	/* allocated in scull_init_module */
 
 
 static void scull_exit(void){

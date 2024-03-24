@@ -16,17 +16,15 @@
 #include <linux/sched.h>
 #include <linux/spinlock.h>
 static dev_t scull_a_firstdev;  /* Where our range begins */
-
-
-/******************SCULL SINGLE ACCESS Device**************************************/
 static struct scull_dev scull_s_device;
 static atomic_t scull_s_available = ATOMIC_INIT(1);
 
 static int scull_s_open(struct inode *node, struct file *filp){
      struct scull_dev *dev = &scull_s_device;
-     // determine if the device is opened by a single process
+     /* Determine if the device is opened by a process already */
      if (! atomic_dec_and_test(&scull_s_available)){
          atomic_inc(&scull_s_available);
+         /* Tell other process's a process is using this */
          return -EBUSY;
      }
      /* Then, everything is copied from the bar scull device */
@@ -37,9 +35,11 @@ static int scull_s_open(struct inode *node, struct file *filp){
 }
 
 static int scull_s_release(struct inode *inode, struct file *filp){
+    /* Give access to other processes */
     atomic_inc(&scull_s_available);
     return 0;
 }
+
 // shared functions
 static inline bool scull_uid_available(unsigned long count, uid_t scull_owner){
     return count == 0 ||

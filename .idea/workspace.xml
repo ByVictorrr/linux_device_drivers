@@ -9,25 +9,24 @@
   </component>
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true">
     <generated>
+      <config projectName="root_project" targetName="_pipe_code_completion" />
       <config projectName="root_project" targetName="remove_scullc_module" />
-      <config projectName="root_project" targetName="init_char" />
       <config projectName="root_project" targetName="_scullc" />
+      <config projectName="root_project" targetName="scull_pipe" />
       <config projectName="root_project" targetName="_headers_scull_main" />
-      <config projectName="root_project" targetName="_headers_scull" />
-      <config projectName="root_project" targetName="clean_scull_module" />
-      <config projectName="root_project" targetName="insert_scull_module" />
       <config projectName="root_project" targetName="_headers_scullc" />
       <config projectName="root_project" targetName="clean_scullc_module" />
       <config projectName="root_project" targetName="insert_scull_main_module" />
       <config projectName="root_project" targetName="insert_scullc_module" />
-      <config projectName="root_project" targetName="_pipe" />
+      <config projectName="root_project" targetName="insert_scull_pipe_module" />
+      <config projectName="root_project" targetName="_headers_scull_pipe" />
+      <config projectName="root_project" targetName="clean_scull_pipe_module" />
       <config projectName="root_project" targetName="remove_scull_main_module" />
       <config projectName="root_project" targetName="scull_main" />
+      <config projectName="root_project" targetName="remove_scull_pipe_module" />
       <config projectName="root_project" targetName="clean_scull_main_module" />
       <config projectName="root_project" targetName="scullc" />
-      <config projectName="root_project" targetName="scull" />
       <config projectName="root_project" targetName="pipe_test" />
-      <config projectName="root_project" targetName="remove_scull_module" />
     </generated>
   </component>
   <component name="CMakeSettings" AUTO_RELOAD="true">
@@ -37,19 +36,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d97ca2d8-5ff7-4d37-89c6-b714b78f81f7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/scull/scull_access/main.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scull/scull_pipe/main.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scullc/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scullc/main.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/scullc/scullc.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scull/scull.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scull/scull.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scull/scull/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scull/scull_access/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scull/scull_pipe/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scull/scull_pipe/rpm_postinstall.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scull/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scull/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scull/include/scull.h" beforeDir="false" afterPath="$PROJECT_DIR$/scull/scull/scull.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scull/src/access.c" beforeDir="false" afterPath="$PROJECT_DIR$/scull/scull_access/access.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scull/src/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/scull/scull/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scull/src/pipe.c" beforeDir="false" afterPath="$PROJECT_DIR$/scull/scull_pipe/pipe.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scull/src/scull.c" beforeDir="false" afterPath="$PROJECT_DIR$/scull/scull/scull.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scull/scull/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/scull/scull/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scull/scull/scull.h" beforeDir="false" afterPath="$PROJECT_DIR$/scull/scull/scull.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scull/scull_access/access.c" beforeDir="false" afterPath="$PROJECT_DIR$/scull/scull_access/access.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scull/scull_pipe/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/scull/scull_pipe/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scull/scull_pipe/pipe.c" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -109,17 +108,17 @@
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="cmake.loaded.for.project" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/scull/scull" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/scull/scull_access" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="CPPToolchains" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\scull\scull" />
       <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\scull\scull_access" />
+      <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\scull\scull" />
+      <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\scull" />
       <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\scullc" />
       <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\scull\src" />
-      <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\misc-progs" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\scull\scull" />
@@ -135,7 +134,12 @@
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
       </method>
     </configuration>
-    <configuration name="_headers_scull" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="_headers_scull" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="root_project" RUN_TARGET_NAME="_headers_scull">
+    <configuration name="_access_code_completion" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="_access_code_completion" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="root_project" RUN_TARGET_NAME="_access_code_completion">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="_headers_scull_access" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="_headers_scull_access" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="root_project" RUN_TARGET_NAME="_headers_scull_access">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -145,12 +149,17 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="_headers_scull_pipe" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="_headers_scull_pipe" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="root_project" RUN_TARGET_NAME="_headers_scull_pipe">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="_headers_scullc" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="_headers_scullc" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="root_project" RUN_TARGET_NAME="_headers_scullc">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="_pipe" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="_pipe" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="root_project" RUN_TARGET_NAME="_pipe">
+    <configuration name="_pipe_code_completion" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="_pipe_code_completion" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="root_project" RUN_TARGET_NAME="_pipe_code_completion">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -165,12 +174,17 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="clean_scull_access_module" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="clean_scull_access_module" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="clean_scull_main_module" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="clean_scull_main_module" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="clean_scull_module" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="clean_scull_module" CONFIG_NAME="Debug">
+    <configuration name="clean_scull_pipe_module" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="clean_scull_pipe_module" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -180,7 +194,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="init_char" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="init_char" CONFIG_NAME="Debug">
+    <configuration name="insert_scull_access_module" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="insert_scull_access_module" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -190,7 +204,7 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="insert_scull_module" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="insert_scull_module" CONFIG_NAME="Debug">
+    <configuration name="insert_scull_pipe_module" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="insert_scull_pipe_module" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -205,12 +219,17 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="remove_scull_access_module" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="remove_scull_access_module" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="remove_scull_main_module" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="remove_scull_main_module" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="remove_scull_module" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="remove_scull_module" CONFIG_NAME="Debug">
+    <configuration name="remove_scull_pipe_module" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="remove_scull_pipe_module" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -220,12 +239,17 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="scull" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="scull" CONFIG_NAME="Debug">
+    <configuration name="scull_access" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="scull_access" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <configuration name="scull_main" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="scull_main" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="scull_pipe" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="scull_pipe" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -247,13 +271,18 @@
       <item itemvalue="CMake Application.remove_scull_main_module" />
       <item itemvalue="CMake Application.scull_main" />
       <item itemvalue="CMake Application.pipe_test" />
-      <item itemvalue="CMake Application._headers_scull" />
-      <item itemvalue="CMake Application._pipe" />
-      <item itemvalue="CMake Application.clean_scull_module" />
-      <item itemvalue="CMake Application.init_char" />
-      <item itemvalue="CMake Application.insert_scull_module" />
-      <item itemvalue="CMake Application.remove_scull_module" />
-      <item itemvalue="CMake Application.scull" />
+      <item itemvalue="CMake Application._access_code_completion" />
+      <item itemvalue="CMake Application._headers_scull_access" />
+      <item itemvalue="CMake Application.clean_scull_access_module" />
+      <item itemvalue="CMake Application.insert_scull_access_module" />
+      <item itemvalue="CMake Application.remove_scull_access_module" />
+      <item itemvalue="CMake Application.scull_access" />
+      <item itemvalue="CMake Application._headers_scull_pipe" />
+      <item itemvalue="CMake Application._pipe_code_completion" />
+      <item itemvalue="CMake Application.clean_scull_pipe_module" />
+      <item itemvalue="CMake Application.insert_scull_pipe_module" />
+      <item itemvalue="CMake Application.remove_scull_pipe_module" />
+      <item itemvalue="CMake Application.scull_pipe" />
       <item itemvalue="CMake Application._headers_scullc" />
       <item itemvalue="CMake Application._scullc" />
       <item itemvalue="CMake Application.clean_scullc_module" />
@@ -281,7 +310,7 @@
       <workItem from="1710199099890" duration="70096000" />
       <workItem from="1710756094315" duration="4017000" />
       <workItem from="1711190148946" duration="2348000" />
-      <workItem from="1711228021092" duration="24426000" />
+      <workItem from="1711228021092" duration="29580000" />
     </task>
     <servers />
   </component>
