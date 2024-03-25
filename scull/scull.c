@@ -16,6 +16,8 @@
 
 
 
+
+
 /**
  * scull_trim - cleans up the memory space for a fresh write
  * @dev:  a scull_device
@@ -237,10 +239,10 @@ long scull_ioctl(struct file *filp, unsigned int cmd, unsigned long arg){
             scull_qset = (int) arg;
             retval = tmp;
         case SCULL_P_IOCTSIZE:
-            scull_p_buffer = arg;
+            scull_p_buffer = (int) arg;
             break;
         case SCULL_P_IOCQSIZE:
-            return scull_b_buffer;
+            return scull_p_buffer;
         default:
             retval = -ENOTTY;
             break;

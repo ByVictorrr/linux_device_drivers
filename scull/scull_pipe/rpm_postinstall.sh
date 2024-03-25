@@ -16,14 +16,16 @@ fi
 /sbin/insmod ./$module.ko $* || exit 1
 
 # retrieve major number
-major=$(awk "\$2==\"$module\" {print \$1}" /proc/devices)
+major=$(grep -w "$module" /proc/devices | cut -d" " -f1)
 
 rm -f /dev/${device}[0-3]
-mknod /dev/${device}0 c $major 0
-mknod /dev/${device}1 c $major 1
-mknod /dev/${device}2 c $major 2
-mknod /dev/${device}3 c $major 3
+mknod /dev/${device}0 c $major 0 || exit 1
+mknod /dev/${device}1 c $major 1 || exit 1
+mknod /dev/${device}2 c $major 2 || exit 1
+mknod /dev/${device}3 c $major 3 || exit 1
 
 ln -sf ${device}pipe0 /dev/${device}pipe
 chgrp $group /dev/${device}pipe[0-3]
 chmod $mode  /dev/${device}pipe[0-3]
+
+echo "Module $module loaded successfully" >> /var/log/scull_pipe.log

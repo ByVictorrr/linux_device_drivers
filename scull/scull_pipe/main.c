@@ -41,6 +41,8 @@ module_param(scull_p_buffer, int, 0);
 
 static struct scull_pipe *scull_devices;
 
+static int scull_p_fasync(int fd, struct file *filp, int mode);
+
 
 static int scull_p_open(struct inode *inode, struct file *filp){
     struct scull_pipe *dev;
@@ -279,7 +281,6 @@ int __init scull_p_init(void){
     /* Initialize each device. */
 
     for (i = 0; i < scull_nr_devs; i++){
-        struct scull_pipe * dev = &scull_devices[i];
         init_waitqueue_head(&dev->inq);
         init_waitqueue_head(&dev->outq);
         mutex_init(&dev->sem);

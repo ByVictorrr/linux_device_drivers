@@ -7,26 +7,30 @@
 
 #include <linux/ioctl.h>
 #include <linux/types.h>
+#undef PDEBUG /* undef it, just in case */
+#ifdef SCULL_DEBUG
+# ifdef __KERNEL__
+ /* This one if debugging is on, and kernel space */
+# define PDEBUG(fmt, args...) printk( KERN_DEBUG "scull: " fmt, ## args)
+# else
+ /* This one for user space */
+# define PDEBUG(fmt, args...) fprintf(stderr, fmt, ## args)
+# endif
+#else
+# define PDEBUG(fmt, args...) /* not debugging: nothing */
+#endif
+#undef PDEBUGG
+#define PDEBUGG(fmt, args...) /* nothing: it's a placeholder */
 
 #define SCULL_MAJOR 0   /* dynamic major by default */
 #define SCULL_NR_DEVS 4    /* scull0 through scull3 */
-#define SCULL_P_NR_DEVS 4  /* scullpipe0 through scullpipe3 */
-/*
- * The bare device is a variable-length region of memory.
- * Use a linked list of indirect blocks.
- *
- * "scull_dev->data" points to an array of pointers, each
- * pointer refers to a memory area of SCULL_QUANTUM bytes.
- *
- * The array (quantum-set) is SCULL_QSET long.
- */
 #define SCULL_QUANTUM 4000
-
 #define SCULL_QSET    1000
-/*
- * The pipe device is a simple circular buffer. Here its default size
- */
 #define SCULL_P_BUFFER 4000
+
+
+
+
 
 struct scull_qset {
     void **data;
@@ -42,31 +46,22 @@ struct scull_dev {
     struct semaphore sem; /* mutual exclusion semaphore */
     struct cdev cdev; /* Char device structure */
 };
+/**
+ *
+ *
+ */
 extern int scull_major;
 extern int scull_minor;
 extern int scull_nr_devs;	/* number of bare scull devices */
 extern int scull_quantum;
 extern int scull_qset;
-extern struct file_operations scull_fops;
+extern int scull_p_buffer;
 int scull_trim(struct scull_dev *dev);
 ssize_t scull_read(struct file *, char __user *, size_t, loff_t *);
 ssize_t scull_write(struct file *, const char __user *, size_t, loff_t *);
 long scull_ioctl(struct file *, unsigned int, unsigned long);
 loff_t scull_llseek(struct file *, loff_t, int);
-#undef PDEBUG /* undef it, just in case */
-#ifdef SCULL_DEBUG
-# ifdef __KERNEL__
- /* This one if debugging is on, and kernel space */
-# define PDEBUG(fmt, args...) printk( KERN_DEBUG "scull: " fmt, ## args)
-# else
- /* This one for user space */
-# define PDEBUG(fmt, args...) fprintf(stderr, fmt, ## args)
-# endif
-#else
-# define PDEBUG(fmt, args...) /* not debugging: nothing */
-#endif
-#undef PDEBUGG
-#define PDEBUGG(fmt, args...) /* nothing: it's a placeholder */
+
 
 
 

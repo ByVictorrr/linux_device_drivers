@@ -40,6 +40,10 @@ set(CPACK_PACKAGE_FILE_NAME "${CPACK_PACKAGE_NAME}-${CPACK_PACKAGE_VERSION}-${CP
 install(FILES "${KERNEL_MODULE_SOURCE_DIR}/mymodule.ko"
         DESTINATION "lib/modules/$(uname -r)/extra"
         )
+
+# Create the 'extra' directory if it doesn't exist
+install(CODE "file(MAKE_DIRECTORY \"\${CMAKE_INSTALL_PREFIX}/lib/modules/\$(uname -r)/extra\")")
+
 install(CODE "execute_process(COMMAND mknod -m 666 /dev/mydevice c 250 0)")
 
 include(CPack)
