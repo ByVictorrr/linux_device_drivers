@@ -15,8 +15,14 @@
 
 
 
+/* Parameters */
 
-
+int scull_major = SCULL_MAJOR;
+int scull_minor = 0;
+int scull_nr_devs = SCULL_NR_DEVS;	/* number of bare scull devices */
+int scull_quantum = SCULL_QUANTUM;
+int scull_qset =  SCULL_QSET;
+int scull_p_buffer = SCULL_P_BUFFER;	/* buffer size */
 
 /**
  * scull_trim - cleans up the memory space for a fresh write
@@ -163,6 +169,7 @@ ssize_t scull_write(struct file *filp, const char __user *buf, size_t count, lof
 long scull_ioctl(struct file *filp, unsigned int cmd, unsigned long arg){
     int err;
     long retval, tmp;
+
     /* validation_1: ensure the type && the command number meets our need*/
     if (_IOC_TYPE(cmd) != SCULL_IOC_MAGIC || _IOC_NR(cmd) > SCULL_IOC_MAXNR)
         return -ENOTTY;
@@ -174,19 +181,19 @@ long scull_ioctl(struct file *filp, unsigned int cmd, unsigned long arg){
 
     switch(cmd){
         case SCULL_IOCRESET: // reset the device
-            dev->quantum = 0;
-            dev->qset = 0;
+            scull_quantum = 0;
+            scull_qset = 0;
             break;
         case SCULL_IOCSQUANTUM: // Set: arg points to the value
             // TODO: dont i have to use access_ok ?
             if (!capable(CAP_SYS_ADMIN))
                 return -EPERM;
-            retval = __put_user(scull_quantum, (int __user *)arg):
+            retval = __put_user(scull_quantum, (int __user *)arg);
             break;
         case SCULL_IOCSQSET: // Set: arg points to the value
             if (!capable(CAP_SYS_ADMIN))
                 return -EPERM;
-            retval = __put_user(scull_qset, (int __user *)arg):
+            retval = __put_user(scull_qset, (int __user *)arg);
             break;
         case SCULL_IOCTQUANTUM: // Tell: arg is the value
             if (!capable(CAP_SYS_ADMIN))
@@ -232,7 +239,7 @@ long scull_ioctl(struct file *filp, unsigned int cmd, unsigned long arg){
             tmp = scull_quantum;
             scull_quantum = (int) arg;
             retval = tmp;
-        case SCULL_IOCHQUANTUM: // sHift: like Tell + Query
+        case SCULL_IOCHQSET: // sHift: like Tell + Query
             if (! capable (CAP_SYS_ADMIN))
                 return -EPERM;
             tmp = scull_qset;

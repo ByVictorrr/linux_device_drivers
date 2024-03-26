@@ -38,13 +38,23 @@ struct scull_qset {
 };
 
 struct scull_dev {
-    struct scull_qset *data; /* Pointer to first quantum set */
     int quantum; /* the current quantum size */
     int qset; /* the current array size */
+    struct scull_qset *data; /* Pointer to first quantum set */
     unsigned long size; /* amount of data stored here */
     unsigned int access_key; /* used by sculluid and scullpriv */
     struct semaphore sem; /* mutual exclusion semaphore */
     struct cdev cdev; /* Char device structure */
+};
+struct scull_pipe{
+    wait_queue_head_t inq, outq;
+    char *buffer, *end;
+    int buffersize;
+    char *rp, *wp;
+    int nreaders, nwriters;
+    struct fasync_struct *async_queue;
+    struct semaphore sem;
+    struct cdev cdev;
 };
 /**
  *
@@ -56,6 +66,7 @@ extern int scull_nr_devs;	/* number of bare scull devices */
 extern int scull_quantum;
 extern int scull_qset;
 extern int scull_p_buffer;
+
 int scull_trim(struct scull_dev *dev);
 ssize_t scull_read(struct file *, char __user *, size_t, loff_t *);
 ssize_t scull_write(struct file *, const char __user *, size_t, loff_t *);

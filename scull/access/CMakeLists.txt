@@ -11,16 +11,17 @@ find_package(KernelHeaders REQUIRED)
 
 # Kernel configuration target
 add_kernel_module(scull_pipe
-        pipe/scull_pipe.c
-        scull.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/main.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/../scull.c
         )
 
-file(COPY scull.h DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+file(MAKE_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR})
+file(COPY ../scull.h DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 add_executable(_pipe_code_completion
-        pipe/scull_pipe.c
-        scull.c
-        scull.h
+        ${CMAKE_CURRENT_SOURCE_DIR}/main.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/../scull.c
+        ${CMAKE_CURRENT_SOURCE_DIR}/../scull.h
         )
 
 # Set up CPack to generate an RPM package
