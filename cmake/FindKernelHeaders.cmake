@@ -26,7 +26,8 @@ foreach(INCLUDE_PATH ${GCC_INCLUDE_PATHS})
     message(STATUS "GCC include path: ${INCLUDE_PATH}")
 endforeach()
 
-set(KERNEL_BUILD_DIR "/usr/src/${KERNEL_VERSION}")
+set(KERNEL_SOURCE_DIR "/usr/src/${KERNEL_VERSION}")
+# set(KERNEL_BUILD_DIR "/lib/modules/${KERNEL_VERSION}/build")
 include_directories(
         /usr/src/${KERNEL_VERSION}/include
         /usr/src/${KERNEL_VERSION}/include/uapi
@@ -43,83 +44,33 @@ include_directories(
         "${GCC_INCLUDE_PATHS}"
 )
 
+function(add_kernel_module MODULE_NAME)
+    # Capture additional arguments as source files
+    set(SOURCE_FILES ${ARGN})
 
-# KernelModule.cmake
-function(add_kernel_module MODULE_NAME SOURCE_FILES)
-    # Determine the kernel version and set the kernel build directory
+    # Set the command to build the kernel module
+    set(KBUILD_CMD $(MAKE) -C ${KERNEL_SOURCE_DIR} modules M=${CMAKE_CURRENT_BINARY_DIR} src=${CMAKE_CURRENT_SOURCE_DIR})
 
-    message(INFO "${KERNEL_BUILD_DIR}")
-    # Ensure the kernel build directory exists
-    if(NOT EXISTS ${KERNEL_BUILD_DIR})
-        message(FATAL_ERROR "Kernel build directory does not exist: ${KERNEL_BUILD_DIR}")
-    endif()
-
-    # Define the module build directory within the binary directory
-    set(MODULE_DIR "${CMAKE_CURRENT_BINARY_DIR}/${MODULE_NAME}")
-    file(MAKE_DIRECTORY ${MODULE_DIR})
-
-    # Copy source files to the module build directory
-    foreach(SOURCE_FILE ${SOURCE_FILES})
-        get_filename_component(SRC_FILE_NAME ${SOURCE_FILE} NAME)
-        get_filename_component(SRC_FILE_DIR ${SOURCE_FILE} DIRECTORY)
-        set(DEST_FILE_PATH "${MODULE_DIR}/${SRC_FILE_NAME}")
-
-        # Custom command to copy and generate build rule
-        add_custom_command(
-                OUTPUT ${DEST_FILE_PATH}
-                COMMAND ${CMAKE_COMMAND} -E copy ${SOURCE_FILE} ${DEST_FILE_PATH}
-                DEPENDS ${SOURCE_FILE}
-                COMMENT "Copying ${SOURCE_FILE} to ${DEST_FILE_PATH}"
-        )
-
-        # Add the destination file to a list
-        list(APPEND DEST_FILES ${DEST_FILE_PATH})
+    # Generate the Kbuild file in the binary directory
+    # Assuming SOURCE_FILES is a list of source files for the module
+    set(OBJECT_FILES "")
+    foreach(SOURCE_FILE IN LISTS SOURCE_FILES)
+        string(REPLACE ".c" ".o" OBJECT_FILE "${SOURCE_FILE}")
+        list(APPEND OBJECT_FILES "${OBJECT_FILE}")
     endforeach()
+    string(REPLACE ";" " " OBJECT_FILES "${OBJECT_FILES}")
+    message("obj files = ${OBJECT_FILES}")
 
-    # Generate the Makefile
-    set(MAKEFILE_PATH "${MODULE_DIR}/Makefile")
-    file(WRITE ${MAKEFILE_PATH} "obj-m += ${MODULE_NAME}.o\n")
-    file(APPEND ${MAKEFILE_PATH} "all:\n")
-    file(APPEND ${MAKEFILE_PATH} "\t$(MAKE) -C ${KERNEL_BUILD_DIR} M=${MODULE_DIR} modules\n")
-    file(APPEND ${MAKEFILE_PATH} "clean:\n")
-    file(APPEND ${MAKEFILE_PATH} "\t$(MAKE) -C ${KERNEL_BUILD_DIR} M=${MODULE_DIR} clean\n")
+    # Generate the Kbuild file with the correct object file list
+    file(WRITE ${CMAKE_CURRENT_SOURCE_DIR}/Kbuild "obj-m := ${MODULE_NAME}.o\n")
+    file(APPEND ${CMAKE_CURRENT_SOURCE_DIR}/Kbuild "${MODULE_NAME}-objs := ${OBJECT_FILES}\n")
 
-    # Create the custom command and target for building the kernel module
-    add_custom_command(
-            OUTPUT ${MODULE_DIR}/${MODULE_NAME}.ko
-            COMMAND make -C ${KERNEL_BUILD_DIR} M=${MODULE_DIR} modules
-            WORKING_DIRECTORY ${MODULE_DIR}
-            DEPENDS ${SOURCE_FILES}
-            COMMENT "Building kernel module ${MODULE_NAME}"
-    )
+    # Define a custom command to build the kernel module
+    add_custom_command(OUTPUT ${MODULE_NAME}.o
+            COMMAND sudo ${KBUILD_CMD}
+            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+            DEPENDS ${SOURCE_FILES} VERBATIM)
 
-    add_custom_target(
-            ${MODULE_NAME}
-            DEPENDS ${MODULE_DIR}/${MODULE_NAME}.ko
-            SOURCES ${SOURCE_FILES} ${DEST_FILES}
-    )
-
-    # Custom target for cleaning the kernel module
-    add_custom_target(
-            clean_${MODULE_NAME}_module
-            COMMAND make -C ${KERNEL_BUILD_DIR} M=${MODULE_DIR} clean
-            WORKING_DIRECTORY ${MODULE_DIR}
-            COMMENT "Cleaning kernel module ${MODULE_NAME}"
-    )
-
-    # Custom target for inserting the kernel module using insmod
-    add_custom_target(
-            insert_${MODULE_NAME}_module
-            COMMAND sudo insmod ${MODULE_DIR}/${MODULE_NAME}.ko
-            DEPENDS ${MODULE_DIR}/${MODULE_NAME}.ko
-            COMMENT "Inserting kernel module ${MODULE_NAME}"
-    )
-
-    # Custom target for removing the kernel module using rmmod
-    add_custom_target(
-            remove_${MODULE_NAME}_module
-            COMMAND sudo rmmod ${MODULE_DIR}/${MODULE_NAME}.ko
-            COMMENT "Removing kernel module ${MODULE_NAME}"
-    )
-    add_executable(_headers_${MODULE_NAME}  ${SOURCE_FILES})
+    # Define a custom target that depends on the output of the custom command
+    add_custom_target(${MODULE_NAME}_driver ALL DEPENDS ${MODULE_NAME}.o)
 endfunction()

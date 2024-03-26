@@ -11,7 +11,7 @@ find_package(KernelHeaders REQUIRED)
 
 # Kernel configuration target
 add_kernel_module(scull
-        scull/scull.c
+        main.c
         scull_pipe/pipe.c
         scull_access/access.c
         scull_pipe/main.c

@@ -1,0 +1,2 @@
+obj-m := scull_pipe.o
+scull_pipe-objs := pipe.o ../scull.o

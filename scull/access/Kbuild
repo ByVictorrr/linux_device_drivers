@@ -1,0 +1,2 @@
+obj-m := scull_access.o
+scull_access-objs := access.o ../scull.o

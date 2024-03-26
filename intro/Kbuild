@@ -1,0 +1,2 @@
+obj-m := scull_main.o
+scull_main-objs := /mnt/c/Users/delaplai/git/cpp/linux_device_drivers/intro/scull_main.o

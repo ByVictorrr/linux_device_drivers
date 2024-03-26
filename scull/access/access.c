@@ -2,19 +2,36 @@
 // Created by delaplai on 3/13/2024.
 //
 
-#include "scull/scull.h"
-#include <asm-generic/atomic.h>
+#include <linux/module.h>
 #include <asm-generic/errno-base.h>
 #include <asm-generic/fcntl.h>
 #include <linux/fs.h>
 #include <linux/tty.h>
-#include <linux/semaphore.h>
-#include <linux/list.h>
-#include <linux/types.h>
 #include <linux/slab.h>
+#include <linux/list.h>
+#include <linux/atomic/atomic-instrumented.h>
+#include "../scull.h"
 
-#include <linux/sched.h>
-#include <linux/spinlock.h>
+MODULE_LICENSE("GPL");
+MODULE_AUTHOR("Victor Delaplaine");
+MODULE_DESCRIPTION("Module that allows you to read/write as many processes as possible.");
+MODULE_VERSION("1.00");
+
+extern int scull_major;
+extern int scull_minor;
+extern int scull_nr_devs;	/* number of bare scull devices */
+extern int scull_quantum;
+extern int scull_qset;
+extern int scull_p_buffer;
+
+module_param(scull_major, int, S_IRUGO);
+module_param(scull_minor,int, S_IRUGO);
+module_param(scull_nr_devs, int, S_IRUGO);
+module_param(scull_quantum, int, S_IRUGO);
+module_param(scull_qset, int, S_IRUGO);
+module_param(scull_p_buffer, int, 0);
+
+
 static dev_t scull_a_firstdev;  /* Where our range begins */
 static struct scull_dev scull_s_device;
 static atomic_t scull_s_available = ATOMIC_INIT(1);
@@ -41,12 +58,11 @@ static int scull_s_release(struct inode *inode, struct file *filp){
 }
 
 // shared functions
-static inline bool scull_uid_available(unsigned long count, uid_t scull_owner){
-    return count == 0 ||
-    scull_owner == current_cred()->uid ||  // allow user
-    scull_owner == current_cred()->ueid ||  // allow whoever did su
-    capable(CAP_DAC_OVERRIDE); // allow root to still open
+static bool scull_uid_available(unsigned long count, kuid_t scull_owner){
+    // no devices       or  scull_owner has the same uid or is root
+    return (count == 0 || scull_owner.val == current_cred()->uid.val || scull_owner.val == current_cred()->euid.val || capable(CAP_DAC_OVERRIDE));
 }
+
 struct file_operations scull_s_fops = {
         .owner =	THIS_MODULE,
         .llseek =     	scull_llseek,
@@ -60,7 +76,7 @@ struct file_operations scull_s_fops = {
 
 static struct scull_dev scull_u_device;
 static DEFINE_SPINLOCK(scull_u_lock);
-static uid_t scull_u_owner;	// initialized to 0 by default
+static kuid_t scull_u_owner;	// initialized to 0 by default
 static unsigned long scull_u_count = 0;
 
 static int scull_u_open(struct inode *node, struct file *filp){
@@ -106,7 +122,7 @@ static DEFINE_SPINLOCK(scull_w_lock);
 static DECLARE_WAIT_QUEUE_HEAD(scull_w_wait);
 static struct scull_dev scull_w_device;
 static unsigned long scull_w_count = 0;
-static uid_t scull_w_owner;	// initialized to 0 by default
+static kuid_t scull_w_owner;	// initialized to 0 by default
 
 static int scull_w_open(struct inode *node, struct file *filp){
 
@@ -182,7 +198,7 @@ static struct scull_dev * scull_c_lookfor_device(dev_t key){
     memset(lptr, 0, sizeof(struct scull_listitem));
     lptr->key = key;
     scull_trim(&lptr->device);
-    mutex_init(&(lptr->device.sem));
+    sema_init(&(lptr->device.sem), 1);
 
     // place it in the list
     list_add(&lptr->list, &scull_c_list);
@@ -249,30 +265,36 @@ static struct scull_adev_info {
         {"scull_priv", &scull_c_device, &scull_c_fops}
 
 };
-int __initscull_access_init(void){
-    int i, err;
-    // Get our number
-    if (register_chrdev_region(firstdev, SCULL_MAX_ADEVS, "sculla")){
-        printk(KERN_WARNING "sculla: device number registration failed\n");
-        return 0;
+int scull_access_init(void){
+    int i, err, result;
+    dev_t dev;
+    if (scull_major) {
+        dev = (dev_t) MKDEV(scull_major, scull_minor);
+        result = register_chrdev_region(dev, (unsigned int) scull_nr_devs, "scull_access");
+    } else {
+        result = alloc_chrdev_region(&dev, (unsigned int) scull_minor, (unsigned int) scull_nr_devs, "scull_access");
+        scull_major = MAJOR(dev);
     }
-    scull_a_firstdev = firstdev;
+    if (result < 0) {
+        printk(KERN_WARNING "scull_access: can't get major %d\n", scull_major);
+        return result;
+    }
+
+    scull_a_firstdev = dev;
     // setup each dev
     for (i=0; i < SCULL_MAX_ADEVS; i++){
         struct scull_adev_info *d = &scull_access_devs[i];
         d->sculldev->quantum = scull_quantum;
         d->sculldev->qset = scull_qset;
-        mutex_init(&d->sculldev->sem);
-        // cdev init
+        sema_init(&d->sculldev->sem, 1);
         cdev_init(&d->sculldev->cdev, d->fops);
-
         kobject_set_name(&d->sculldev->cdev.kobj, d->name);
         d->sculldev->cdev.owner = THIS_MODULE;
-        err = cdev_add(&d->sculldev->cdev, firstdev + i, 1);
+        err = cdev_add(&d->sculldev->cdev, dev + i, 1);
         if (err)
             printk(KERN_NOTICE "Error %d adding %s\n", err, d->name);
         else
-            printk(KERN_NOTICE "%s registered at %x\n", d->name, firstdev + 1);
+            printk(KERN_NOTICE "%s registered at %x\n", d->name, dev + 1);
 
     }
     return SCULL_MAX_ADEVS;
@@ -291,7 +313,7 @@ void scull_access_cleanup(void){
         scull_trim(dev);
     }
     /* Clean up all cloned devices - virtual clones */
-    list_for_each_safe(lptr, next, &scull_c_list, list){
+    list_for_each_entry_safe(lptr, next, &scull_c_list, list){
         list_del(&lptr->list);
         scull_trim(&lptr->device);
         kfree(lptr);
@@ -299,3 +321,6 @@ void scull_access_cleanup(void){
     }
     unregister_chrdev_region(scull_a_firstdev, SCULL_MAX_ADEVS);
 }
+
+module_init(scull_access_init);
+module_exit(scull_access_cleanup);
