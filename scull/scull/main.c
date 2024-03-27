@@ -11,11 +11,11 @@ MODULE_AUTHOR("Victor Delaplaine");
 MODULE_DESCRIPTION("A simple example Linux module.");
 MODULE_VERSION("0.01");
 
-int scull_major =   SCULL_MAJOR;
-int scull_minor =   0;
-int scull_nr_devs = SCULL_NR_DEVS;	/* number of bare scull devices */
-int scull_quantum = 4000;
-int scull_qset =  1000;
+extern int scull_major;
+extern int scull_minor;
+extern int scull_nr_devs;
+extern int scull_quantum;
+extern int scull_qset;
 
 module_param(scull_major, int, S_IRUGO);
 module_param(scull_minor,int, S_IRUGO);
@@ -23,6 +23,33 @@ module_param(scull_nr_devs, int, S_IRUGO);
 module_param(scull_quantum, int, S_IRUGO);
 module_param(scull_qset, int, S_IRUGO);
 struct scull_dev *scull_devices;	/* allocated in scull_init_module */
+
+
+
+
+static int scull_open(struct inode *inode, struct file *filp) {
+    struct scull_dev *dev;
+    dev = container_of(inode->i_cdev, struct scull_dev, cdev);
+    filp->private_data = dev;
+    // Trim to 0 the length of the device if open was write only
+    if ((filp->f_flags & O_ACCMODE) == O_WRONLY) {
+        if (down_interruptible(&dev->sem))
+            return -ERESTARTSYS;
+        scull_trim(dev);
+        up(&dev->sem);
+    }
+    return 0;
+}
+
+struct file_operations scull_fops = {
+        .owner=THIS_MODULE,
+        .open=scull_open,
+        .read=scull_read,
+        .write=scull_write,
+        .unlocked_ioctl=scull_ioctl,
+        .llseek=scull_llseek,
+
+};
 
 
 static void scull_exit(void){
@@ -35,9 +62,6 @@ static void scull_exit(void){
     kfree(scull_devices);
     unregister_chrdev((unsigned int) scull_major, "scull");
 
-    /* and call the cleanup functions for friend devices */
-    scull_p_cleanup();
-    scull_access_cleanup();
 }
 
 
@@ -81,11 +105,6 @@ static int __init scull_init(void){
         }
 
     }
-    // At this point call the init function for any friend device
-    dev = (dev_t) MKDEV(scull_major, scull_minor + scull_major);
-    dev+= scull_p_init(dev);
-    dev+= scull_access_init(dev);
-
     return 0;
 
     fail:

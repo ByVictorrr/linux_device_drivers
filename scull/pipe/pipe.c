@@ -14,10 +14,9 @@ MODULE_VERSION("1.00");
 
 extern int scull_major;
 extern int scull_minor;
-extern int scull_nr_devs;	/* number of bare scull devices */
+extern int scull_nr_devs;
 extern int scull_quantum;
 extern int scull_qset;
-extern int scull_p_buffer;
 
 module_param(scull_major, int, S_IRUGO);
 module_param(scull_minor,int, S_IRUGO);

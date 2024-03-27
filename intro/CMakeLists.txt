@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0.0 FATAL_ERROR)
 
-project("Init And Exit Kernel Modules" VERSION 0.1.0 LANGUAGES C)
+project("example" VERSION 0.1.0 LANGUAGES C)
 set(CMAKE_C_STANDARD 90)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 
@@ -10,7 +10,6 @@ find_package(KernelHeaders REQUIRED)
 
 
 # Kernel configuration target
-add_kernel_module(scull_main ${CMAKE_CURRENT_SOURCE_DIR}/scull_main.c)
-
+add_kernel_module(example scull_main.c)
 
 
