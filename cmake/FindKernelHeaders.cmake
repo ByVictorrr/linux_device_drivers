@@ -4,7 +4,11 @@ execute_process(
         OUTPUT_STRIP_TRAILING_WHITESPACE
 )
 add_definitions(-D__KERNEL__ -DMODULE)
+add_definitions(-DMODULE)
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu89")
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -nostdinc")
+set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} -nostdlib")
+
 
 # -------- extract c include paths -----------
 # Define a variable to store the include paths
@@ -26,30 +30,29 @@ foreach(INCLUDE_PATH ${GCC_INCLUDE_PATHS})
     message(STATUS "GCC include path: ${INCLUDE_PATH}")
 endforeach()
 
-set(KERNEL_SOURCE_DIR "/usr/src/${KERNEL_VERSION}")
-# set(KERNEL_BUILD_DIR "/lib/modules/${KERNEL_VERSION}/build")
+set(KERNEL_BUILD_DIR "/usr/src/${KERNEL_VERSION}")
 include_directories(
-        /usr/src/${KERNEL_VERSION}/include
-        /usr/src/${KERNEL_VERSION}/include/uapi
-        /usr/src/${KERNEL_VERSION}/include/asm-generic
-        /usr/src/${KERNEL_VERSION}/include/generated/uapi
-        /usr/src/${KERNEL_VERSION}/arch/x86/include
-        /usr/src/${KERNEL_VERSION}/arch/x86/include/uapi
-        /usr/src/${KERNEL_VERSION}/arch/x86/include/generated
-        /usr/src/${KERNEL_VERSION}/arch/x86/include/generated/uapi
-        /usr/src/${KERNEL_VERSION}/arch/x86/include/generated/asm
-        /usr/src/${KERNEL_VERSION}/arch/x86/include/uapi/asm
-        /usr/src/${KERNEL_VERSION}/arch/x86/include/asm
-        /usr/src/${KERNEL_VERSION}/arch/x86/um/asm
-        "${GCC_INCLUDE_PATHS}"
+        ${KERNEL_BUILD_DIR}/include
+        ${KERNEL_BUILD_DIR}/include/uapi
+        ${KERNEL_BUILD_DIR}/include/asm-generic
+        ${KERNEL_BUILD_DIR}/include/generated/uapi
+        ${KERNEL_BUILD_DIR}/arch/x86/include
+        ${KERNEL_BUILD_DIR}/arch/x86/include/uapi
+        ${KERNEL_BUILD_DIR}/arch/x86/include/generated
+        ${KERNEL_BUILD_DIR}/arch/x86/include/generated/uapi
+        ${KERNEL_BUILD_DIR}/arch/x86/include/generated/asm
+        ${KERNEL_BUILD_DIR}/arch/x86/include/uapi/asm
+        ${KERNEL_BUILD_DIR}/arch/x86/include/asm
+        ${KERNEL_BUILD_DIR}/arch/x86/um/asm
+        # "${GCC_INCLUDE_PATHS}"
 )
-
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -include ${KERNEL_BUILD_DIR}/include/linux/kconfig.h")
 function(add_kernel_module MODULE_NAME)
     # Capture additional arguments as source files
     set(SOURCE_FILES ${ARGN})
 
     # Set the command to build the kernel module
-    set(KBUILD_CMD $(MAKE) -C ${KERNEL_SOURCE_DIR} modules M=${CMAKE_CURRENT_BINARY_DIR} src=${CMAKE_CURRENT_SOURCE_DIR})
+    set(KBUILD_CMD $(MAKE) -C /usr/src/${KERNEL_VERSION} modules M=${CMAKE_CURRENT_BINARY_DIR} src=${CMAKE_CURRENT_SOURCE_DIR})
 
     # Generate the Kbuild file in the binary directory
     # Assuming SOURCE_FILES is a list of source files for the module

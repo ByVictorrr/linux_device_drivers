@@ -18,11 +18,11 @@ extern int scull_nr_devs;
 extern int scull_quantum;
 extern int scull_qset;
 
-module_param(scull_major, int, S_IRUGO);
-module_param(scull_minor,int, S_IRUGO);
-module_param(scull_nr_devs, int, S_IRUGO);
-module_param(scull_quantum, int, S_IRUGO);
-module_param(scull_qset, int, S_IRUGO);
+module_param(scull_major, int, 0);
+module_param(scull_minor,int, 0);
+module_param(scull_nr_devs, int, 0);
+module_param(scull_quantum, int, 0);
+module_param(scull_qset, int, 0);
 module_param(scull_p_buffer, int, 0);
 
 static struct scull_pipe *scull_devices;

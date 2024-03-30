@@ -12,12 +12,14 @@
       <config projectName="root_project" targetName="scull_pipe_driver" />
       <config projectName="root_project" targetName="uninstall" />
       <config projectName="root_project" targetName="scullc_driver" />
+      <config projectName="root_project" targetName="PHONY_scullp" />
       <config projectName="root_project" targetName="PHONY_scull_access" />
       <config projectName="root_project" targetName="PHONY_scullc" />
       <config projectName="root_project" targetName="PHONY_scull_pipe" />
       <config projectName="root_project" targetName="example_driver" />
-      <config projectName="root_project" targetName="scull_driver" />
+      <config projectName="root_project" targetName="scullp_driver" />
       <config projectName="root_project" targetName="PHONY_scull" />
+      <config projectName="root_project" targetName="scull_driver" />
       <config projectName="root_project" targetName="scull_access_driver" />
     </generated>
   </component>
@@ -28,21 +30,18 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d97ca2d8-5ff7-4d37-89c6-b714b78f81f7" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/scullp/CMakeLists.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scullp/main.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/scullp/scullp.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/intro/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/intro/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/intro/Kbuild" beforeDir="false" afterPath="$PROJECT_DIR$/intro/Kbuild" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scull/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scull/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scull/access/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scull/access/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scull/access/access.c" beforeDir="false" afterPath="$PROJECT_DIR$/scull/access/access.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scull/pipe/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scull/pipe/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmake/FindKernelHeaders.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake/FindKernelHeaders.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scull/access/Kbuild" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/scull/pipe/Kbuild" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/scull/pipe/pipe.c" beforeDir="false" afterPath="$PROJECT_DIR$/scull/pipe/pipe.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/scull/scull.c" beforeDir="false" afterPath="$PROJECT_DIR$/scull/scull.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scull/scull/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scull/scull/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scull/scull/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/scull/scull/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scullc/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/scullc/CMakeLists.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/scullc/Kbuild" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/scullc/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/scullc/main.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scullc/scullc.h" beforeDir="false" afterPath="$PROJECT_DIR$/scullc/scullc.h" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -55,7 +54,6 @@
     <option name="navigationViaClangd" value="false" />
     <option name="formatViaClangd" value="false" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
@@ -103,21 +101,26 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="RunOnceActivity.cidr.known.project.marker" value="true" />
     <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.mappings" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.highlight.symlinks" value="true" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.date" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.permissions" value="false" />
+    <property name="WebServerToolWindowPanel.toolwindow.show.size" value="false" />
     <property name="cf.advertisement.text.has.clang-format" value="true" />
     <property name="cf.first.check.clang-format" value="false" />
     <property name="cidr.known.project.marker" value="true" />
     <property name="cmake.loaded.for.project" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/scullc" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/scullp" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="CPPToolchains" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\scullp" />
+      <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers" />
       <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\scullc" />
       <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\scull\access" />
       <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\cmake" />
-      <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\scull\pipe" />
-      <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\cmake-build-debug\scull\scull_pipe" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\scull" />
@@ -127,7 +130,7 @@
       <recent name="C:\Users\delaplai\git\cpp\linux_device_drivers\cmake-build-debug\scull\scull_pipe" />
     </key>
   </component>
-  <component name="RunManager" selected="CMake Application.example_driver">
+  <component name="RunManager" selected="Makefile Application.Unnamed">
     <configuration name="Unnamed" type="CLionNativeAppRunConfigurationType" nameIsGenerated="true" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="KERNEL_MODULES" TARGET_NAME="clean_scull_main_module" CONFIG_NAME="Debug" version="1">
       <method v="2">
         <option name="CLION.COMPOUND.BUILD" enabled="true" />
@@ -149,6 +152,11 @@
       </method>
     </configuration>
     <configuration name="PHONY_scullc" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="PHONY_scullc" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PHONY_scullp" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="PHONY_scullp" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
@@ -183,14 +191,14 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration name="uninstall" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="uninstall" CONFIG_NAME="Debug">
+    <configuration name="scullp_driver" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="scullp_driver" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="GradleAppRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true">
+    <configuration name="uninstall" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="uninstall" CONFIG_NAME="Debug">
       <method v="2">
-        <option name="com.jetbrains.cidr.cpp.gradle.execution.GradleNativeBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
     <list>
@@ -204,6 +212,8 @@
       <item itemvalue="CMake Application.scull_driver" />
       <item itemvalue="CMake Application.PHONY_scullc" />
       <item itemvalue="CMake Application.scullc_driver" />
+      <item itemvalue="CMake Application.PHONY_scullp" />
+      <item itemvalue="CMake Application.scullp_driver" />
       <item itemvalue="Makefile Application.Unnamed" />
     </list>
   </component>
@@ -227,7 +237,10 @@
       <workItem from="1711190148946" duration="2348000" />
       <workItem from="1711228021092" duration="24426000" />
       <workItem from="1711350322017" duration="44527000" />
-      <workItem from="1711483859277" duration="11039000" />
+      <workItem from="1711483859277" duration="22520000" />
+      <workItem from="1711674770221" duration="6320000" />
+      <workItem from="1711739775102" duration="1190000" />
+      <workItem from="1711777741800" duration="2245000" />
     </task>
     <servers />
   </component>

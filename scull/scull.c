@@ -257,11 +257,11 @@ long scull_ioctl(struct file *filp, unsigned int cmd, unsigned long arg){
     return retval;
 };
 
-loff_t scullc_llseek(struct file *filp, loff_t off, int whence){
+loff_t scull_llseek(struct file *filp, loff_t off, int whence){
     /*
      * Same function as $ROOT/scull/scull.c:scull_llseek
      */
-    struct scullc_dev *dev = filp->private_data;
+    struct scull_dev *dev = filp->private_data;
     loff_t newpos;
     switch(whence){
         case SEEK_SET:
