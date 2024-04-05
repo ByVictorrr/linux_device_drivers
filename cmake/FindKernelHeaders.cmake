@@ -44,7 +44,7 @@ include_directories(
         ${KERNEL_BUILD_DIR}/arch/x86/include/uapi/asm
         ${KERNEL_BUILD_DIR}/arch/x86/include/asm
         ${KERNEL_BUILD_DIR}/arch/x86/um/asm
-        # "${GCC_INCLUDE_PATHS}"
+        "${GCC_INCLUDE_PATHS}"
 )
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -include ${KERNEL_BUILD_DIR}/include/linux/kconfig.h")
 function(add_kernel_module MODULE_NAME)

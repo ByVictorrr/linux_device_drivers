@@ -55,7 +55,6 @@ struct scullp_dev *scullp_follow(struct scullp_dev *dev, int n)
 }
 int scullp_trim(struct scullp_dev *dev)
 {
-    // TODO: Need to add vms
     struct scullp_dev *next, *dptr;
     int qset = dev->qset, i;
     for (dptr = dev; dptr; dptr = next){
@@ -82,7 +81,7 @@ int scullp_trim(struct scullp_dev *dev)
  * Open and close
  */
 
-int scullp_open (struct inode *inode, struct file *filp)
+int scullp_open(struct inode *inode, struct file *filp)
 {
     struct scullp_dev *dev; /* device information */
 
@@ -115,30 +114,40 @@ ssize_t scullp_read(struct file *filp, char __user *buf, size_t count, loff_t *f
     if (down_interruptible(&dev->sem)){
         return -ERESTARTSYS;
     }
+    /* Position wanted to start reading at is passed its upper bound */
     if (*f_pos > dev->size)
-        goto out;
+        goto nothing;
 
-    if (*f_pos + count > dev -> size){
+    /* If the start pointer + num of bytes to read is over size; normalize it */
+    if (*f_pos + count > dev->size){
         count = dev->size - * f_pos;
     }
-    // find the list items, qset index, & offset in the quantum
+    /* find the list items, qset index, & offset in the quantum */
     item = (int) (((long) *f_pos) / itemsize);
     rest = (int) (((long) *f_pos) % itemsize);
     s_pos = rest / quantum, q_pos = rest % quantum;
 
+    /* follow the list up to the right position */
     dptr = scullp_follow(dev, item);
+    /* Ensure data we need is not null */
     if (!dptr || !dptr->data || !dptr->data[s_pos])
-        goto out;
-    // read only up to the end of the quantum
+        goto nothing;
+
+    /* read only up to the end of the quantum */
     if (count > quantum - q_pos)
         count = (size_t) (quantum - q_pos);
+
+    /* Copy the data user */
     if (copy_to_user(buf, dptr->data[s_pos] + q_pos, count)) {
         retval = -EFAULT;
-        goto out;
+        goto nothing;
     }
+    up(&dev->sem);
+
     *f_pos += (loff_t)count;
-    retval = (ssize_t)count;
-    out:
+    return count;
+
+    nothing:
         up(&dev->sem);
         return retval;
 }
@@ -148,51 +157,51 @@ ssize_t scullp_write(struct file *filp, const char __user *buf, size_t count, lo
     int qset = dev->qset, quantum = (int) (PAGE_SIZE << dev->order);
     int itemsize = qset * quantum;
     int item, s_pos, q_pos, rest;
+    /* Assume an error will return */
     ssize_t retval = -ENOMEM;
 
 
-    if (down_interruptible(&dev->sem)) {
+    if (down_interruptible(&dev->sem))
         return -ERESTARTSYS;
-    }
 
-    // find the list items, qset index, & offset in the quantum
+    /* find the list items, qset index, & offset in the quantum */
     item = (int) (((long) *f_pos) / itemsize);
     rest = (int) (((long) *f_pos) % itemsize);
     s_pos = rest / quantum, q_pos = rest % quantum;
 
-    // follow the list up to the right position
+    /* follow the list up to the right position*/
     dptr = scullp_follow(dev, item);
-    if (!dptr)
-        goto out;
     if (!dptr->data){
         dptr->data = (void **) kmalloc(qset * sizeof(char *), GFP_KERNEL);
         if (!dptr->data)
-            goto out;
+            goto nomem;
         memset(dptr->data, 0, qset * sizeof(char *));
     }
     /* Here's the allocation of a single quantum */
     if (!dptr->data[s_pos]){
+        /* allocated num of pages is log_2(order) */
         dptr->data[s_pos] = (void*) __get_free_pages(GFP_KERNEL, (unsigned int) dptr->order);
         if (!dptr->data[s_pos])
-            goto out;
+            goto nomem;
         memset(dptr->data[s_pos], 0, PAGE_SIZE << dptr->order);
     }
-    // write only up to the end of this quantum
+    /* write only up to the end of this quantum */
     if (count > quantum - q_pos)
         count = (size_t) (quantum - q_pos);
 
-    if (copy_to_user(dptr->data[s_pos] + q_pos, buf, count)){
+    if (copy_from_user(dptr->data[s_pos] + q_pos, buf, count)){
         retval = -EFAULT;
-        goto out;
+        goto nomem;
     }
     *f_pos += count;
-    retval = count;
-
+    /* Update the size */
     if (dev->size < *f_pos)
         dev->size = (unsigned long) *f_pos;
-    out:
     up(&dev->sem);
-    return retval;
+    return count;
+    nomem:
+        up(&dev->sem);
+        return retval;
 }
 static long scullp_ioctl(struct file *filp, unsigned int cmd, unsigned long arg){
     int err;
@@ -209,28 +218,19 @@ static long scullp_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
 
     switch(cmd){
         case SCULLP_IOCRESET: // reset the device
-            scullp_order = 0;
-            scullp_qset = 0;
+            scullp_order = SCULLP_ORDER;
+            scullp_qset = SCULLP_QSET;
             break;
         case SCULLP_IOCSORDER: // Set: arg points to the value
-            // TODO: dont i have to use access_ok ?
-            if (!capable(CAP_SYS_ADMIN))
-                return -EPERM;
             retval = __put_user(scullp_order, (int __user *)arg);
             break;
         case SCULLP_IOCSQSET: // Set: arg points to the value
-            if (!capable(CAP_SYS_ADMIN))
-                return -EPERM;
             retval = __put_user(scullp_qset, (int __user *)arg);
             break;
         case SCULLP_IOCTORDER: // Tell: arg is the value
-            if (!capable(CAP_SYS_ADMIN))
-                return -EPERM;
             scullp_order = (int) arg;
             break;
         case SCULLP_IOCTQSET: // Tell: arg is the value
-            if (!capable(CAP_SYS_ADMIN))
-                return -EPERM;
             scullp_qset = (int) arg;
             break;
         case SCULLP_IOCGQSET: // Get: arg is pointer to result
@@ -246,33 +246,27 @@ static long scullp_ioctl(struct file *filp, unsigned int cmd, unsigned long arg)
             retval = scullp_qset;
             break;
         case SCULLP_IOCXORDER: // eXchange: use arg as pointer
-            if (!capable(CAP_SYS_ADMIN))
-                return -EPERM;
             tmp = scullp_order;
             retval = __get_user(scullp_order, (int __user *)arg);
             if (retval == 0)
                 retval = __put_user(tmp, (int __user *)arg);
             break;
         case SCULLP_IOCXQSET: // eXchange: use arg as pointer
-            if (!capable(CAP_SYS_ADMIN))
-                return -EPERM;
             tmp = scullp_qset;
             retval = __get_user(scullp_qset, (int __user *)arg);
             if (retval == 0)
                 retval = __put_user(tmp, (int __user *)arg);
             break;
         case SCULLP_IOCHORDER: // sHift: like Tell + Query
-            if (! capable (CAP_SYS_ADMIN))
-                return -EPERM;
             tmp = scullp_order;
             scullp_order = (int) arg;
             retval = tmp;
+            break;
         case SCULLP_IOCHQSET: // sHift: like Tell + Query
-            if (! capable (CAP_SYS_ADMIN))
-                return -EPERM;
             tmp = scullp_qset;
             scullp_qset = (int) arg;
             retval = tmp;
+            break;
         default:
             retval = -ENOTTY;
             break;
