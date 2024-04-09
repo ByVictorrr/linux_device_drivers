@@ -11,6 +11,7 @@
     <generated>
       <config projectName="root_project" targetName="uninstall" />
       <config projectName="root_project" targetName="PHONY_scullp" />
+      <config projectName="root_project" targetName="short_driver" />
       <config projectName="root_project" targetName="example_driver" />
       <config projectName="root_project" targetName="scullp_driver" />
       <config projectName="root_project" targetName="scull_driver" />
@@ -19,6 +20,7 @@
       <config projectName="root_project" targetName="scullc_driver" />
       <config projectName="root_project" targetName="PHONY_scull_access" />
       <config projectName="root_project" targetName="PHONY_scullc" />
+      <config projectName="root_project" targetName="PHONY_short" />
       <config projectName="root_project" targetName="PHONY_scull_pipe" />
       <config projectName="root_project" targetName="PHONY_scull" />
     </generated>
@@ -30,12 +32,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d97ca2d8-5ff7-4d37-89c6-b714b78f81f7" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/short/CMakeLists.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/short/short.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cmake/FindKernelHeaders.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/cmake/FindKernelHeaders.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/scullp/main.c" beforeDir="false" afterPath="$PROJECT_DIR$/scullp/main.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/short/short.c" beforeDir="false" afterPath="$PROJECT_DIR$/short/short.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,6 +164,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="PHONY_short" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="PHONY_short" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="example_driver" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="example_driver" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -196,6 +199,11 @@
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
       </method>
     </configuration>
+    <configuration name="short_driver" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="short_driver" CONFIG_NAME="Debug">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="uninstall" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="root_project" TARGET_NAME="uninstall" CONFIG_NAME="Debug">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -219,6 +227,8 @@
       <item itemvalue="CMake Application.scullc_driver" />
       <item itemvalue="CMake Application.PHONY_scullp" />
       <item itemvalue="CMake Application.scullp_driver" />
+      <item itemvalue="CMake Application.PHONY_short" />
+      <item itemvalue="CMake Application.short_driver" />
       <item itemvalue="Makefile Application.Unnamed" />
     </list>
   </component>
@@ -248,7 +258,7 @@
       <workItem from="1711777741800" duration="2245000" />
       <workItem from="1712028334318" duration="567000" />
       <workItem from="1712192121924" duration="3000" />
-      <workItem from="1712198608878" duration="6918000" />
+      <workItem from="1712198608878" duration="15417000" />
     </task>
     <servers />
   </component>
